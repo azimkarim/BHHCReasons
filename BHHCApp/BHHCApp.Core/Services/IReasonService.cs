@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 namespace BHHCApp.Core.Services
 {
+    // services interfaces
     public interface IReasonService
     {
         Task<IEnumerable<Reason>> GetAllReasons();

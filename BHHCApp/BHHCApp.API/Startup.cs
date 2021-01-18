@@ -26,7 +26,8 @@ namespace BHHCApp.API
         {
             services.AddControllers();
 
-            var connectionString = "connection string to database";
+            //injections of services 
+            var connectionString = @"source=localhost;database=bhhc;Integrated Security=SSPI;persist security info=True;"" providerName = ""System.Data.SqlClient";
             services.AddEntityFrameworkSqlServer()
                 .AddDbContext<AppDbContext>((serviceProvider, options) =>
                     options.UseSqlServer(connectionString)

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace BHHCApp.Core.Repositories
 {
+    // generic repository entity
     public interface IRepository<TEntity> where TEntity : class
     {
         ValueTask<TEntity> GetByIdAsync(int id);

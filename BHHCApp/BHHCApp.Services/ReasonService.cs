@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace BHHCApp.Services
 {
+    // Use this services to serve any request from clients
     public class ReasonService : IReasonService
     {
         private readonly IUnitOfWork _unitOfWork;

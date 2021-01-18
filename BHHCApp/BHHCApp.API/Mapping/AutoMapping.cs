@@ -8,6 +8,7 @@ namespace BHHCApp.API.Mapping
     {
         public AutoMapping()
         {
+            //mapping model with dto
             CreateMap<Reason, ReasonDTO>();
         }
     }

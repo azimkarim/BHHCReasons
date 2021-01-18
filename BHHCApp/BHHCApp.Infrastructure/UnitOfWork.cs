@@ -11,6 +11,7 @@ namespace BHHCApp.Infrastructure
         private readonly AppDbContext _context;
         private ReasonRepository _reasonRepository;
 
+        // Unit of work to share single db context when using multiple repositories
         public UnitOfWork(AppDbContext context)
         {
             _context = context;

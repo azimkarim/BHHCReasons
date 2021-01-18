@@ -15,6 +15,7 @@ namespace BHHCApp.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            //build entity and seed data
             builder.Entity<Reason>(ConfigureReason);
             builder.Entity<Reason>().HasData(new Reason { id = 1, description = "Skills contribution to company success" });
             builder.Entity<Reason>().HasData(new Reason { id = 2, description = "Company great reputation" });

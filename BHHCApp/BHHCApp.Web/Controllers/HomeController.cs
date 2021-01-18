@@ -31,6 +31,7 @@ namespace BHHCApp.Web.Controllers
 
         public async Task<IActionResult> Reasons()
         {
+            // Consume web RESTful api
             using (HttpClient client = new HttpClient())
             {
                 string endpoint = apiBaseUrl + "/reasons";
