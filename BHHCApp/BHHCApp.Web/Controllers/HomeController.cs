@@ -1,10 +1,11 @@
 ﻿using BHHCApp.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Net.Http;
-using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace BHHCApp.Web.Controllers
@@ -31,22 +32,27 @@ namespace BHHCApp.Web.Controllers
 
         public async Task<IActionResult> Reasons()
         {
-            // Consume web RESTful api
+            // Consume web RESTful api and pass model to the view page
             using (HttpClient client = new HttpClient())
             {
-                string endpoint = apiBaseUrl + "/reasons";
-                using (var res = await client.GetAsync(endpoint))
+                client.BaseAddress = new Uri(apiBaseUrl);
+                var responseTask = client.GetAsync("reasons");
+                responseTask.Wait();
+
+                var res = responseTask.Result;
+                if (res.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    if (res.StatusCode == System.Net.HttpStatusCode.OK)
+                    using (var contentStream = await res.Content.ReadAsStreamAsync())
                     {
-                        return View(res.Content);
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(string.Empty, "Error fetching records");
+                        var model = await JsonSerializer.DeserializeAsync<ReasonViewModel>(contentStream);
+                        return View(model);
                     }
                 }
-                return View();
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Error fetching records");
+                    return View(Enumerable.Empty<ReasonViewModel>());
+                }
             }
         }
         
